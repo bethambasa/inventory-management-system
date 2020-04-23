@@ -64,13 +64,13 @@ app.config.from_object(Productionconfig)
 # 1. declaration of a route
 # 2. a function embedded to the route
 
-conn = psycopg2.connect(
-        "dbname"='d5agpncjn4ork6'
-        "user"='zqgtjktttrhkai'
-        "host"='ec2-52-201-55-4.compute-1.amazonaws.com'
-        "port"='5432'
-        "password"='084fd839350946db1d97269c132c0f717a5dc954b6380c3172d407387de6cc0e')
-        cur = conn.cursor()
+#conn = psycopg2.connect(
+       # "dbname"='d5agpncjn4ork6'
+       # "user"='zqgtjktttrhkai'
+       # "host"='ec2-52-201-55-4.compute-1.amazonaws.com'
+       # "port"='5432'
+       # "password"='084fd839350946db1d97269c132c0f717a5dc954b6380c3172d407387de6cc0e')
+       # cur = conn.cursor()
 
 
 
