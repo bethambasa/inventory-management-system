@@ -6,7 +6,7 @@ from flask import Flask, render_template, request, redirect, url_for
 
 import pygal
 
-import psycopg2
+# import psycopg2
 
 from flask_sqlalchemy import SQLAlchemy
 
