@@ -1,0 +1,18 @@
+{ %extend 'base.html'%}
+
+{% block title %}
+ view sales
+
+ {% endblock %}
+
+ {% block content %}
+
+ {% for each in sales %}
+ <p> 
+    quantity : {{ each.quantity}} <br>
+     sold at: {{ each.created_at}}
+ </p>
+ {% endfor %}
+
+
+ {%endblock%}

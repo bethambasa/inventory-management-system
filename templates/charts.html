@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title%} 
+Data visualization
+
+{% end block%}
+
+
+{%block content%}
+<div id="chart">
+    <embed  src= "{{  pie|safe }}"  type="image/svg+xml" />
+ </div>     
+
+{% end block %}
