@@ -58,7 +58,7 @@ app = Flask(__name__)
 # calling/ instanciating
 db= SQLAlchemy(app)
 
-app.config.from_object(Productionconfig)
+app.config.from_object(Production)
 
 # Creating of endpoints/ routes
 # 1. declaration of a route
