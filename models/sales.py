@@ -6,7 +6,7 @@ class SalesModel(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     invid=db.Column(db.Integer,db.Foreignkey)
     quantity=db.Column(db.Integer)
-     created_at=db.Column(db.Datetime,default=datetime.utcnow)) 
+    created_at=db.Column(db.Datetime,default=datetime.utcnow)) 
 
      def add_sales(self):
         db.session.add(self)
