@@ -1,56 +1,10 @@
-# importing
-# import <filename>
-# from filename import <.....>
-
 from flask import Flask, render_template, request, redirect, url_for
-
 import pygal
 
 # import psycopg2
 
 from flask_sqlalchemy import SQLAlchemy
-
 from config.config import Development,Production
-
- 
-#FLASK-SQLALCHEMY 
-    #Library that helps us write classes object to communicate to our database without
-    #writing sql statements
-
-   # EXAMPLE 
-    #INSERT INTO sales VALUES (inv_id=1, quantity=10, created=now())
-
-    #create a class and it SalesModel
-    #then create function that inserts records
-    #then insert
-
-    #class SalesModel():
-        #def insert_sales(self):
-           # db.session.add()
-        
-    #query
-
-       # def query_sales(self):
-            #self.query.all()
- 
-
-# calling/ instanciating
-
-#PSYCOPG2
-    #Its a python library that helps write queries in flask
-    #HOW TO USE IT
-    #1. install it
-    #2. set up a connection to your database 
-        #- username
-        #- password
-        #- port
-        #- root
-        #- dbname
-    #3. connect to using cursor
-    #4. execute an SQL Statement
-    #5. Fetch your records
-
-
 
 app = Flask(__name__)
 # load configuration
@@ -58,11 +12,7 @@ app = Flask(__name__)
 # calling/ instanciating
 db= SQLAlchemy(app)
 
-app.config.from_object(Production)
-
-# Creating of endpoints/ routes
-# 1. declaration of a route
-# 2. a function embedded to the route
+app.config.from_object(Development)
 
 #conn = psycopg2.connect(
        # "dbname"='d5agpncjn4ork6'
@@ -84,29 +34,9 @@ from models.stock  import StockModel
 def create_table():
     db.create_all()
 
-def drop_table():
-    db.drop_all()
-  
- 
-
+# def drop_table():
+#     db.drop_all()
 @app.route('/')
-def hello_world():
-    return '<h1>Welcome to web development</h1>'
-@app.route('/home')
-def home():
-    return '<h1>Welcome to Home Page</h1>'
-# @app.route('/name/<name>')
-# def my_name(name):
-#     # return f'My name is {name}'
-#     # return 'My name is {}'.format(name)
-#     return 'My name is ' +name
-# add two numbers dynamically
-@app.route('/add/<a>/<b>')
-def adding(a, b):
-    sum = int(a)+int(b)
-    return str(sum) 
-
-@app.route('/index')
 def index():
     return render_template('index.html')
 
@@ -124,8 +54,10 @@ def about():
 
 @app.route('/inventories', methods=['GET', 'POST'])
 def inventories():
-    # recieve from a form
-    
+
+    all_inv = InventoryModel.query.all()
+    print(all_inv)
+
     if request.method == 'POST':
         name = request.form['name']
         inv_type = request.form['type']
@@ -142,22 +74,34 @@ def inventories():
         
         return redirect(url_for('inventories'))
  
-    return render_template('inventory.html')
+    return render_template('inventory.html', all_inv=all_inv)
+
 # A ROUTE TO RECIEVE STOCK DATA FROM ADD STOCK MODAL
-@app.route('/add_stock', methods=['POST'])
-def add_stock():
+@app.route('/add_stock/<id>', methods=['POST'])
+def add_stock(id):
+
     # check if the method is post
     if request.method == 'POST':
         stock = request.form['stock']
+
+        added_stock = StockModel(inv_id=id, stock=stock)
+        added_stock.add_stock()
+
         print(stock)
         return redirect(url_for('inventories'))
         
-@app.route('/make_sale', methods=['POST'])
-def make_sale():
+@app.route('/make_sale/<id>', methods=['POST'])
+def make_sale(id):
+
     if request.method == 'POST':
+
         quantity = request.form['quantity']
+
+        sale = SalesModel(inv_id=id, quantity=quantity)
+
         print(quantity)
         return redirect(url_for('inventories'))
+
 @app.route('/edit', methods=['GET', 'POST'])
 def edit():
     # recieve from a form

@@ -2,11 +2,12 @@ from main import db
 from datetime import datetime
 
 class StockModel(db.Model):
-    _tablename_='new_stock'
+    __tablename__='new_stock'
     id=db.Column(db.Integer,primary_key=True)
-    invid=db.Column(db.Integer,db.Foreign key)
-    stock=db.Column(db,Integer)
-    created_at=db.Column(db.Datetime,default=datetime.utcnow))
+    stock=db.Column(db.Integer)
+    created_at=db.Column(db.String(100),default=datetime.now())
+    inv_id=db.Column(db.Integer,db.ForeignKey('inventories.id'))
+
     
 
     def add_stock(self):

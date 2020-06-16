@@ -8,7 +8,7 @@ class config():
 
 class Development(config):
     # database://user:password@host:port/databasename
-    SQLALCHEMY_DATABASE_URI= 'postgresql:postgres:123456@127.0.0.1:5432/inventory_management_system'
+    SQLALCHEMY_DATABASE_URI= 'postgresql://postgres:0724140432mummy@127.0.0.1:5432/inventory_management_system'
  
 
 class Production(config):
